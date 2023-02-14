@@ -30,10 +30,10 @@ export default class GrupoUsuariosController {
 
     private async getValidarDatosGrupoYUsuario(codigoGrupo: Number, codigoUsuario: Number) : Promise<Number> {	
         let total = await Grupo.query().where({'codigo_grupo': codigoGrupo}).count('*').from('grupos');
-        let cantidadDatos = total[0]['count(*)'];
+        let cantidadDatos = total[0]['count'];
         if(cantidadDatos !== 0){
             total = await Usuario.query().where({'codigo_usuario': codigoUsuario}).count('*').from('usuarios');
-            cantidadDatos = parseInt(total[0]['count(*)']);
+            cantidadDatos = parseInt(total[0]['count']);
             if(cantidadDatos !== 0){
                 return 0;
             }else{

@@ -21,6 +21,6 @@ export default class PublicacionesController {
 
     private async getValidarPublicacionExistente(codigoPublicacion: Number) : Promise<Number> {    
         let total = await Publicacione.query().where({'codigo_publicacion': codigoPublicacion}).count('*').from('publicaciones');
-        return parseInt(total[0]['count(*)']);
+        return parseInt(total[0]['count']);
     }
 }

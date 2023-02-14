@@ -21,6 +21,6 @@ export default class PerfilsController {
 
     private async getValidarDatosUsuario(codigoPerfil: Number) : Promise<Number> {    
         let total = await Perfil.query().where({'codigo_perfil': codigoPerfil}).count('*').from('perfils');
-        return parseInt(total[0]['count(*)']);
+        return parseInt(total[0]['count']);
     }
 }

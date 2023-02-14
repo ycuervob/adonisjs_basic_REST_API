@@ -31,11 +31,17 @@ Route.group(() => {
   Route.get('/listar-perfil', 'UsuariosController.getListarUsuariosYPerfil');
   Route.get ('/listar-publicaciones', 'UsuariosController.getListarUsuariosyPublicaciones');
   Route.get('/listar-usuarios-grupos', 'UsuariosController.getListarUsuariosGrupos');
+  Route.get('/buscar-por-id/:id', 'UsuariosController.buscarPorId');
+  Route.get('/filtrar-por-nombre/', 'UsuariosController.filtroPorNombre');
+  
+  Route.delete('/eliminar-usuario/:id', 'UsuariosController.eliminarUsuario');
 
   Route.post('/registro-usuario', 'UsuariosController.setRegistrarUsuario');
   Route.post('/registro-perfil', 'PerfilesController.setRegistrarPerfil');
   Route.post('/registro-publicacion', 'PublicacionesController.setRegistrarPublicacion');
   Route.post('/registro-grupo', 'GruposController.setRegistrarGrupo');
   Route.post('/registro-usuario-grupo', 'UsuariosGruposController.setRegistrarUsuarioGrupo');
+
+  Route.put('/actualizar-usuario/:id', 'UsuariosController.actualizarUsuario');
   
 }).prefix('alcaldia')

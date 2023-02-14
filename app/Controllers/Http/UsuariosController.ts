@@ -41,6 +41,44 @@ export default class UsuariosController {
 
     public async getValidarUsuarioExistente(codigoUsuario: Number): Promise<Number> {
         const total = await Usuario.query().where({ 'codigo_usuario': codigoUsuario }).count('*').from('usuarios');
-        return parseInt(total[0]['count(*)']);
+        return parseInt(total[0]['count']);
+    }
+
+    public async buscarPorId({ request }: HttpContextContract) {
+        const id = request.param('id');
+        const usuario = await Usuario.find(id);
+        return usuario;
+    }
+
+    public async actualizarUsuario({ request, response }: HttpContextContract) {
+        const id = request.param('id');
+        const usuario = await Usuario.find(id);
+        if (usuario) {
+            usuario.nombre_usuario = request.input('nombre_usuario');
+            usuario.telefono_usuario = request.input('telefono_usuario');
+            usuario.email_usuario = request.input('email_usuario');
+            usuario.contrasena = request.input('contrasena');
+            await usuario.save();
+            response.status(200).json({ message: 'Usuario actualizado correctamente' });
+        } else {
+            response.status(400).json({ message: 'Error, el usuario no se encuentra registrado' });
+        }
+    }
+
+    public async eliminarUsuario({ request, response }: HttpContextContract) {
+        const id = request.param('id');
+        const usuario = await Usuario.find(id);
+        if (usuario) {
+            await usuario.delete();
+            response.status(200).json({ message: 'Usuario eliminado correctamente' });
+        } else {
+            response.status(400).json({ message: 'Error, el usuario no se encuentra registrado' });
+        }
+    }
+    
+    public async filtroPorNombre({ request }: HttpContextContract) {
+        const nombre = request.input('nombre');
+        const usuarios = await Usuario.query().where('nombre_usuario', 'like', '%'+nombre+'%');
+        return usuarios;
     }
 }

@@ -21,7 +21,7 @@ export default class GruposController {
 
     private async getValidarGrupoExiste(codigo_grupo: number) {
         const total = await Grupo.query().where('codigo_grupo', codigo_grupo).count('*').from('grupos');
-        return parseInt(total[0]['count(*)']);
+        return parseInt(total[0]['count']);
     }
 
 }
